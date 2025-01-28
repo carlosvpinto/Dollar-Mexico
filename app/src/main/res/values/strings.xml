@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Dollar_Mexico</string>
+    <string name="title_home">Inicio</string>
+    <string name="title_historia">Historia</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="tasa_cambiaria">Tasa Cambiaria</string>
+    <string name="institucion">Institucion</string>
+    <string name="fecha_de_actualizacion">Fecha de Actualizacion</string>
+    <string name="precio_en_pesos">Precio en Pesos</string>
+    <string name="precio_de_compra">Compra</string>
+    <string name="precio_de_venta">Venta</string>
+</resources>

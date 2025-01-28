@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Verde: Representa el color primario que evoca el peso mexicano. -->
+    <color name="green_500">#4CAF50</color>
+    <color name="green_700">#388E3C</color>
+
+    <!-- Azul: Un color secundario que refleja confianza y profesionalismo. -->
+    <color name="blue_200">#90CAF9</color>
+    <color name="blue_700">#1976D2</color>
+
+    <!-- Rojo: Usado para acentos y destacar elementos importantes. -->
+    <color name="red_500">#F44336</color>
+
+    <!-- Grises: Para el fondo y texto secundarios. -->
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_700">#616161</color>
+
+    <!-- Texto y elementos principales. -->
+    <color name="black">#000000</color>
+    <color name="white">#565454</color>
+
+        <!-- Primary brand colors -->
+        <color name="purple_200">#BB86FC</color>
+        <color name="purple_500">#6200EE</color>
+        <color name="purple_700">#3700B3</color>
+
+        <!-- Secondary brand colors (teal) -->
+        <color name="teal_200">#03DAC5</color>
+        <color name="teal_700">#018786</color>
+
+        <!-- Gray shades for Night Mode -->
+        <color name="gray_800">#333333</color>
+        <color name="gray_900">#1E1E1E</color>
+
+        <!-- Background colors -->
+        <color name="background">#000000</color>
+
+    <color name="md_theme_light_surfaceTint">#0056D0</color>
+    <color name="green">#13F403</color>
+    <color name="red">#D00018</color>
+
+
+</resources>

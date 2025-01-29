@@ -9,6 +9,7 @@ import android.view.animation.AnimationUtils
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -55,9 +56,12 @@ class HomeFragment : Fragment() {
 
 
         llamarApiMexico { isSuccessful ->
+            comenzarCarga()
             if (isSuccessful) {
+               finalizarCarga()
                 Log.d(TAG, "onCreateView: $isSuccessful")
             } else {
+                finalizarCarga()
                 Log.d(TAG, "onCreateView: $isSuccessful")
             }
         }
@@ -70,6 +74,16 @@ class HomeFragment : Fragment() {
 //        }
 
         return root
+    }
+
+    private fun comenzarCarga() {
+        binding.viewLoading.isVisible = true
+        binding.recyclerBancosMX.isVisible = false
+    }
+
+    private fun finalizarCarga() {
+        binding.viewLoading.isVisible = false
+        binding.recyclerBancosMX.isVisible = true
     }
 
     fun llamarApiMexico(callback: (Boolean) -> Unit) {

@@ -39,7 +39,9 @@ class PreciosTodosAdapter(val context: Fragment, var preciosBancosMX: ArrayList<
     override fun onBindViewHolder(holder: BancosMXAdapterViewHolder, position: Int) {
         val bancoMX =   preciosBancosMX[position] // UN SOLO HISTORIAL
         holder.textViewFechaActu.text = bancoMX.date
-        holder.textViewMontoBs.text = bancoMX.buy.toString()
+
+        bancoMX.buy.toString().also { holder.textViewMontoCompra.text = it }
+        bancoMX.sell.toString().also { holder.textViewMontoVenta.text = it }
         holder.textViewNombreBanco.text = bancoMX.name
         holder.textViewVariacion.text = bancoMX.sell.toString()
        // holder.imgflecha.setImageResource(R.drawable.ic_flechaverde)
@@ -70,8 +72,8 @@ class PreciosTodosAdapter(val context: Fragment, var preciosBancosMX: ArrayList<
     class BancosMXAdapterViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         val textViewFechaActu: TextView
-        val textViewMontoBs: TextView
-
+        val textViewMontoCompra: TextView
+        val textViewMontoVenta: TextView
         val textViewNombreBanco: TextView
         val textViewVariacion: TextView
         val cardView: CardView // Nueva referencia a la CardView
@@ -81,7 +83,8 @@ class PreciosTodosAdapter(val context: Fragment, var preciosBancosMX: ArrayList<
 
         init {
             textViewFechaActu = view.findViewById(R.id.txtFechaActualizacionBanco)
-            textViewMontoBs = view.findViewById(R.id.txtPrecioBsBanco)
+            textViewMontoCompra = view.findViewById(R.id.txtPrecioCompra)
+            textViewMontoVenta = view.findViewById(R.id.txtPrecioVenta)
             textViewVariacion = view.findViewById(R.id.txtVariacion)
             imgLogo = view.findViewById(R.id.circleInstitucion)
             textViewNombreBanco = view.findViewById(R.id.txtNombreBanco)

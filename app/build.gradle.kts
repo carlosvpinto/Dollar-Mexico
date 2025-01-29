@@ -58,6 +58,7 @@ dependencies {
     implementation (libs.logging.interceptor)
     implementation(libs.glide)
     implementation(libs.roundedimageview)
+    implementation (libs.shimmer)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

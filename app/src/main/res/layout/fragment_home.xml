@@ -39,9 +39,33 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerBancosMX"
         android:layout_marginTop="10dp"
+        android:visibility="gone"
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
 
         />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_auto_start="true">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/viewLoading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/view_loading"/>
+            <include layout="@layout/view_loading"/>
+            <include layout="@layout/view_loading"/>
+            <include layout="@layout/view_loading"/>
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
 </LinearLayout>

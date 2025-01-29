@@ -49,7 +49,13 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     // Glide para Imágenes
-    implementation ("de.hdodenhof:circleimageview:3.1.0")
+    implementation (libs.circleimageview)
+    // RETROFIT2
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.okhttp) // La versión puede variar
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+    implementation (libs.logging.interceptor)
     implementation(libs.glide)
     implementation(libs.roundedimageview)
 

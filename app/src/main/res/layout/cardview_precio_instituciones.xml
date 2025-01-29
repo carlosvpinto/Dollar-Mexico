@@ -1,196 +1,177 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardView"
-
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:elevation="10dp"
-    android:background="@color/black"
-
-    app:cardCornerRadius="30dp"
-    app:cardElevation="10dp"
-    android:layout_margin="15dp"
-    app:contentPadding="5dp">
+    android:layout_margin="12dp"
+    android:elevation="12dp"
+    android:background="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="5dp"
-        android:background="@color/blue_200"
-        android:layout_gravity="center"
-        android:paddingBottom="5dp">
+        android:padding="16dp">
 
+        <!-- Header con imagen y nombre de la institución -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginBottom="12dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/circleInstitucion"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@drawable/institution_svgrepo_com"
-                app:civ_border_width="3dp"
-                android:layout_marginTop="20dp"
-                app:civ_border_color="@color/black"
-                android:layout_gravity="bottom|center"
-                android:layout_marginBottom="45dp"/>
-
-
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/gray" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="15dp">
+                android:layout_marginStart="16dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/institucion"
                     android:textStyle="bold"
-
-                    android:textSize="17sp"/>
+                    android:textSize="18sp"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/txtNombreBanco"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="banco"
-                    android:textSize="17sp"/>
-
+                    android:text="Nombre del Banco"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray_dark" />
             </LinearLayout>
-
         </LinearLayout>
+
+        <!-- Información de actualización -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_gravity="center|top"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginBottom="12dp">
 
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/ic_calendario" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="15dp">
+                android:layout_marginStart="12dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/fecha_de_actualizacion"
                     android:textStyle="bold"
-
-                    android:textSize="17sp"/>
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/txtFechaActualizacionBanco"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="fecha"
-                    android:textSize="17sp"/>
-
+                    android:text="Fecha de actualización"
+                    android:textSize="14sp"
+                    android:textColor="@color/gray_dark" />
             </LinearLayout>
-
         </LinearLayout>
 
-
+        <!-- Precios de compra y venta -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="5dp">
+            android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:src="@drawable/ic_peso" />
-
+            <!-- Precio de compra -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="15dp">
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/precio_de_compra"
                     android:textStyle="bold"
-                    android:textSize="17sp"/>
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/txtPrecioBsBanco"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Precio"
-                    android:textStyle="bold"
-                    android:textSize="17sp"/>
-
+                    android:text="Precio de Compra"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray_dark"
+                    android:textStyle="bold" />
             </LinearLayout>
 
+            <!-- Precio de venta -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="25dp">
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/precio_de_venta"
                     android:textStyle="bold"
-                    android:textSize="17sp"/>
+                    android:textSize="16sp"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/txtPrecioVenta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Venta"
-                    android:textStyle="bold"
-                    android:textSize="17sp"/>
-
+                    android:text="Precio de Venta"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray_dark"
+                    android:textStyle="bold" />
             </LinearLayout>
-            <TextView
-                android:id="@+id/txtVariacion"
+
+            <!-- Variación -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0.04"
-                android:textStyle="bold"
-                android:layout_marginLeft="20dp"
-                android:textSize="14sp"/>
+                android:orientation="vertical"
+                android:gravity="center_vertical">
 
-            <ImageView
-                android:id="@+id/imgfechabanco"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_flecha_roja"
-                android:textStyle="bold"
-                android:padding="5dp"
-                android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/txtVariacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Variación"
+                    android:textSize="14sp"
+                    android:textColor="@color/black" />
 
+                <ImageView
+                    android:id="@+id/imgfechabanco"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_flecha_roja" />
+            </LinearLayout>
         </LinearLayout>
-
-
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>

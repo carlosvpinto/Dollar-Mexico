@@ -38,6 +38,8 @@
     <color name="md_theme_light_surfaceTint">#0056D0</color>
     <color name="green">#13F403</color>
     <color name="red">#D00018</color>
+    <color name="gray_dark">#404040</color>
+    <color name="gray">#808080</color>
 
 
 </resources>

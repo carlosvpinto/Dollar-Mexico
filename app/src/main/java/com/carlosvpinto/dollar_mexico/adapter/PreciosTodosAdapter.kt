@@ -10,80 +10,64 @@ import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.carlosvpinto.dollar_mexico.R
+import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponse
+import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponseItem
 import com.carlosvpinto.dollar_mexico.model.PreciosModelAdap
 import de.hdodenhof.circleimageview.CircleImageView
 
-class PreciosTodosAdapter(val context: Fragment, var otrosBancos: ArrayList<PreciosModelAdap>): RecyclerView.Adapter<PreciosTodosAdapter.OtrosBancosAdapterViewHolder>() {
+class PreciosTodosAdapter(val context: Fragment, var preciosBancosMX: ArrayList<ApiMexicoResponseItem>): RecyclerView.Adapter<PreciosTodosAdapter.BancosMXAdapterViewHolder>() {
 
 
 
     private var itemCount: Int = 0 // variable para almacenar la cantidad de elementos en la lista
 
     init {
-        var totalBs = 0.0
-        var totalDollar= 0.0
-        var totalSinVeriBs = 0.0
-        var totalSinVeriBsDollar = 0.0
 
-
-        Log.d("RESPUESTA", "otrasPaginas.size: ${otrosBancos.size} ")
-       // val textView = context.findViewById<TextView>(R.id.txtRespuesta)
-
-        itemCount = otrosBancos.size
+        itemCount = preciosBancosMX.size
     }
 //**************************************************************
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OtrosBancosAdapterViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BancosMXAdapterViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.cardview_precio_instituciones, parent, false)
-        return OtrosBancosAdapterViewHolder(view)
+        return BancosMXAdapterViewHolder(view)
     }
 
     // ESTABLECER LA INFORMACION
-    override fun onBindViewHolder(holder: OtrosBancosAdapterViewHolder, position: Int) {
-        val otroBanco =   otrosBancos[position] // UN SOLO HISTORIAL
-        holder.textViewFechaActu.text = otroBanco.last_update
-        holder.textViewMontoBs.text = otroBanco.precio.toString()
-        holder.textViewNombreBanco.text = otroBanco.nombre
-        holder.textViewVariacion.text = otroBanco.diferencia.toString()
+    override fun onBindViewHolder(holder: BancosMXAdapterViewHolder, position: Int) {
+        val bancoMX =   preciosBancosMX[position] // UN SOLO HISTORIAL
+        holder.textViewFechaActu.text = bancoMX.date
+        holder.textViewMontoBs.text = bancoMX.buy.toString()
+        holder.textViewNombreBanco.text = bancoMX.name
+        holder.textViewVariacion.text = bancoMX.sell.toString()
        // holder.imgflecha.setImageResource(R.drawable.ic_flechaverde)
-        Log.d("ADAPTER", " otroBanco.nombre ${otroBanco.nombre} ")
+        Log.d("ADAPTER", " otroBanco.nombre ${bancoMX.name} ")
 
-        holder.imgLogo.visibility = View.VISIBLE
-        holder.imgCircleInsti.visibility= View.GONE
+        Glide.with(context)
+            .load(bancoMX.image)
+            .placeholder(R.drawable.institution_svgrepo_com)  // Imagen de placeholder mientras se carga la URL
+            .error(R.drawable.institution_svgrepo_com)    // Imagen que se muestra si ocurre un error
+            .into(holder.imgCircleInsti)
+
 
 
         // holder.itemView.setOnClickListener { goToDetail(pagoMovil?.id!!) } //para no llamar al activity al gacer click
-    }
-    fun mostrarFlecha(color:String,holder: OtrosBancosAdapterViewHolder){
-        val contexto = holder.itemView.context
-        if (color== "green"){
-            holder.imgflecha.setImageResource(R.drawable.ic_flechaverde)
-            holder.textViewVariacion.setTextColor(ContextCompat.getColor(contexto,R.color.green))
-        }
-        if (color== "red"){
-            holder.imgflecha.setImageResource(R.drawable.ic_flecha_roja)
-            holder.textViewVariacion.setTextColor(ContextCompat.getColor(contexto,R.color.red))
-        }
-        if (color== "neutral"){
-            holder.imgflecha.setImageResource(R.drawable.ic_flecha_igual)
-            holder.textViewVariacion.setTextColor(ContextCompat.getColor(contexto,R.color.black))
-        }
     }
 
 
     // EL TAMAñO DE LA LISTA QUE VAMOS A MOSTRAR
     override fun getItemCount(): Int {
-        return otrosBancos.size
+        return preciosBancosMX.size
     }
-    fun updatePrecioBancos(precionBancosList: List<PreciosModelAdap> ){
-        Log.d("ADAPTER", " DENTRO updatePrecioBancos precionBancosList $precionBancosList ")
-        this.otrosBancos = precionBancosList as ArrayList<PreciosModelAdap>
+    fun updatePrecioMexico(precioMexicoList: List<ApiMexicoResponseItem> ){
+        Log.d("ADAPTER", " DENTRO updatePrecioBancos precionBancosList $precioMexicoList ")
+        this.preciosBancosMX = precioMexicoList as ArrayList<ApiMexicoResponseItem>
         notifyDataSetChanged()
     }
 
-    class OtrosBancosAdapterViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class BancosMXAdapterViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
         val textViewFechaActu: TextView
         val textViewMontoBs: TextView

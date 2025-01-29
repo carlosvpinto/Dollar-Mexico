@@ -71,6 +71,7 @@ class PreciosTodosAdapter(val context: Fragment, var preciosBancosMX: ArrayList<
 
         val textViewFechaActu: TextView
         val textViewMontoBs: TextView
+
         val textViewNombreBanco: TextView
         val textViewVariacion: TextView
         val cardView: CardView // Nueva referencia a la CardView

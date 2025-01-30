@@ -1,6 +1,7 @@
 package com.carlosvpinto.dollar_mexico.ui.home
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,10 +11,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import com.carlosvpinto.dollar_mexico.adapter.PreciosTodosAdapter
 import com.carlosvpinto.dollar_mexico.databinding.FragmentHomeBinding
 import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponse
@@ -35,7 +38,6 @@ class HomeFragment : Fragment() {
     private val TAG = "HomeFragment"
 
     private lateinit var adapter: PreciosTodosAdapter
-    val bancosList = mutableListOf<PreciosTodosAdapter>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,26 +56,36 @@ class HomeFragment : Fragment() {
         adapter = PreciosTodosAdapter(this@HomeFragment, ArrayList())
         binding.recyclerBancosMX.adapter = adapter
 
+        binding.btnRefresh.setOnClickListener {
+            actualizarApi()
+        }
+        actualizarApi()
 
+
+        binding.editTexFiltroC.addTextChangedListener { userfilter ->
+           val institucionesList = ApiResponseHolder.getResponse()
+            val bancosFiltrados = institucionesList?.filter { banco->
+                banco.name.lowercase()?.contains(userfilter.toString().lowercase())== true}
+            if (bancosFiltrados != null) {
+                adapter?.updatePrecioMexico(bancosFiltrados)
+            }
+        }
+
+        return root
+    }
+
+    private fun actualizarApi() {
+        comenzarCarga()
         llamarApiMexico { isSuccessful ->
-            comenzarCarga()
+
             if (isSuccessful) {
-               finalizarCarga()
+                finalizarCarga()
                 Log.d(TAG, "onCreateView: $isSuccessful")
             } else {
                 finalizarCarga()
                 Log.d(TAG, "onCreateView: $isSuccessful")
             }
         }
-
-
-//        binding.editTexFiltroC.addTextChangedListener { userfilter ->
-//            val bancosFiltrados = bancosList.filter { banco->
-//                banco.nombre?.lowercase()?.contains(userfilter.toString().lowercase())== true}
-//            adapter?.updatePrecioBancos(bancosFiltrados)
-//        }
-
-        return root
     }
 
     private fun comenzarCarga() {
@@ -105,6 +117,7 @@ class HomeFragment : Fragment() {
                 if (responseApiMexico != null) {
                     withContext(Dispatchers.Main) {
                         Log.d(TAG, "llamarApiMexico: $responseApiMexico")
+                        ApiResponseHolder.setResponse(responseApiMexico)
                         llamarBancosMXFragment(responseApiMexico)
                         callback(true)
                     }
@@ -127,6 +140,22 @@ class HomeFragment : Fragment() {
             Log.d(TAG, "VALOR DEL RESPONSE en bancosFragment $response")
             if (response != null) {
                 adapter.updatePrecioMexico(response)
+
+                // Crear un SmoothScroller con interpolación personalizada para efecto más suave
+                val smoothScroller = object : LinearSmoothScroller(requireContext()) {
+                    override fun getVerticalSnapPreference(): Int {
+                        return SNAP_TO_START // Para que se desplace al inicio de la lista
+                    }
+
+                    override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics): Float {
+                        // Ajustar la velocidad del scroll (a menor valor, más lento)
+                        return 60f / displayMetrics.densityDpi
+                    }
+                }
+
+                // Fijar la posición objetivo para el smoothScroller
+                smoothScroller.targetPosition = 0
+                binding.recyclerBancosMX.layoutManager?.startSmoothScroll(smoothScroller)
             }
         } catch (e: Exception) {
             Log.d("llamarPrecioOtros", "ERROR DE RESPONSE $e")
@@ -134,6 +163,7 @@ class HomeFragment : Fragment() {
             println("Error: ${e.message}")
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

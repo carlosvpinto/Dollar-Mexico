@@ -99,7 +99,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:background="@color/light_gray"
+            android:padding="8dp"
+            android:layout_marginBottom="8dp">
 
             <!-- Precio de compra -->
             <LinearLayout
@@ -122,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:text="Precio de Compra"
                     android:textSize="15sp"
-                    android:textColor="@color/gray_dark"
+                    android:textColor="@color/material_dynamic_primary0"
                     android:textStyle="bold" />
             </LinearLayout>
 
@@ -147,31 +150,10 @@
                     android:layout_height="wrap_content"
                     android:text="Precio de Venta"
                     android:textSize="15sp"
-                    android:textColor="@color/gray_dark"
+                    android:textColor="@color/material_dynamic_primary0"
                     android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Variación -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:id="@+id/txtVariacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Variación"
-                    android:textSize="14sp"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:id="@+id/imgfechabanco"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_flecha_roja" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>
+

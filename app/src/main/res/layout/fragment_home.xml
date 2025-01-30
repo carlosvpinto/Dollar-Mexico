@@ -22,19 +22,38 @@
     </TextView>
 
 
-
-    <EditText
-        android:id="@+id/editTexFiltroC"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:backgroundTint="@color/green_700"
-        android:imeOptions="actionSearch"
-        tools:text="Buscar Bancos"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:inputType="text"
-        android:hint="Banco a Buscar"
-        android:drawableRight="@drawable/ic_buscar_24"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <!-- EditText ocupa el espacio restante con layout_weight -->
+        <EditText
+            android:id="@+id/editTexFiltroC"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/green_700"
+            android:imeOptions="actionSearch"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:inputType="text"
+            android:hint="@string/buscar_instituciones"
+            android:drawableRight="@drawable/ic_buscar_24"/>
+
+        <!-- Botón de refrescar al final -->
+        <ImageButton
+            android:id="@+id/btnRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_refresh_24"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/refresh"/>
+
+    </LinearLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerBancosMX"

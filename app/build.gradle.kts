@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
 }
 
 android {
@@ -59,6 +60,9 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.roundedimageview)
     implementation (libs.shimmer)
+    implementation (libs.androidx.fragment.ktx)
+    implementation (libs.material.v160)
+    implementation(libs.androidx.activity) // Revisa la última versión
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -1,34 +1,46 @@
 package com.carlosvpinto.dollar_mexico.adapter
 
+import android.app.Activity
+import android.content.Intent
+import android.os.Build
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.carlosvpinto.dollar_mexico.activitys.MainActivity
 import com.carlosvpinto.dollar_mexico.R
-import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponse
+import com.carlosvpinto.dollar_mexico.activitys.CalculatorActivity
 import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponseItem
-import com.carlosvpinto.dollar_mexico.model.PreciosModelAdap
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import de.hdodenhof.circleimageview.CircleImageView
+import java.time.LocalDateTime
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
-class PreciosTodosAdapter(val context: Fragment, var preciosBancosMX: ArrayList<ApiMexicoResponseItem>): RecyclerView.Adapter<PreciosTodosAdapter.BancosMXAdapterViewHolder>() {
+class PreciosTodosAdapter(
+    val context: Activity,
+    var preciosBancosMX: ArrayList<ApiMexicoResponseItem>,
+   // private val navController: NavController // Recibe el NavController de la actividad o fragmento
+) : RecyclerView.Adapter<PreciosTodosAdapter.BancosMXAdapterViewHolder>() {
 
-
-
+    //private lateinit var navController: NavController
     private var itemCount: Int = 0 // variable para almacenar la cantidad de elementos en la lista
+    private val TAG = "Adaptador"
 
     init {
 
+
         itemCount = preciosBancosMX.size
     }
+
 //**************************************************************
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BancosMXAdapterViewHolder {
@@ -37,22 +49,39 @@ class PreciosTodosAdapter(val context: Fragment, var preciosBancosMX: ArrayList<
         return BancosMXAdapterViewHolder(view)
     }
 
-    // ESTABLECER LA INFORMACION
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: BancosMXAdapterViewHolder, position: Int) {
-        val bancoMX = preciosBancosMX[position] // UN SOLO HISTORIAL
-        holder.textViewFechaActu.text = bancoMX.date
+        val bancoMX = preciosBancosMX[position]
 
-        bancoMX.buy.toString().also { holder.textViewMontoCompra.text = it }
-        bancoMX.sell.toString().also { holder.textViewMontoVenta.text = it }
+        holder.textViewFechaActu.text = convertirUTCaLocal(bancoMX.date)
+        holder.textViewMontoCompra.text = bancoMX.buy.toString()
+        holder.textViewMontoVenta.text = bancoMX.sell.toString()
         holder.textViewNombreBanco.text = bancoMX.name
-        Log.d("ADAPTER", " otroBanco.nombre ${bancoMX.name} ")
 
-        Glide.with(context)
+        Glide.with(holder.itemView.context)
             .load(bancoMX.image)
-            .placeholder(R.drawable.institution_svgrepo_com)  // Imagen de placeholder mientras se carga la URL
-            .error(R.drawable.institution_svgrepo_com)    // Imagen que se muestra si ocurre un error
+            .placeholder(R.drawable.institution_svgrepo_com)
+            .error(R.drawable.institution_svgrepo_com)
             .into(holder.imgCircleInsti)
 
+        // Manejar el click en el itemView
+        holder.itemView.setOnClickListener {
+
+                goToDetail(bancoMX) }
+
+
+
+        }
+
+    private fun goToDetail(bancoMX: ApiMexicoResponseItem) {
+        val intent = Intent(context, CalculatorActivity::class.java).apply {
+            putExtra("nombre", bancoMX.name)
+            putExtra("montoCompra", bancoMX.buy)
+            putExtra("montoVenta", bancoMX.sell)
+            putExtra("fechaActu", bancoMX.date)
+            putExtra("image", bancoMX.image)
+        }
+        context.startActivity(intent)
     }
 
 
@@ -90,6 +119,24 @@ class PreciosTodosAdapter(val context: Fragment, var preciosBancosMX: ArrayList<
 
 
         }
+    }
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertirUTCaLocal(utcDateTime: String): String {
+        // Formato del datetime de entrada
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+
+        // Parsear el datetime de entrada a LocalDateTime
+        val localDateTime = LocalDateTime.parse(utcDateTime, formatter)
+
+        // Convertir a ZonedDateTime en UTC
+        val zonedUTC = localDateTime.atZone(ZoneId.of("UTC"))
+
+        // Convertir a la hora local del sistema
+        val zonedLocal = zonedUTC.withZoneSameInstant(ZoneId.systemDefault())
+
+        // Formatear la salida en el formato deseado (12 horas)
+        val formatterSalida = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a")
+        return zonedLocal.format(formatterSalida)
     }
 
 }

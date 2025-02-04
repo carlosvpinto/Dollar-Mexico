@@ -15,11 +15,16 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
+import com.carlosvpinto.dollar_mexico.R
 import com.carlosvpinto.dollar_mexico.adapter.PreciosTodosAdapter
 import com.carlosvpinto.dollar_mexico.databinding.FragmentHomeBinding
 import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponse
+import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponseItem
 import com.carlosvpinto.dollar_mexico.utils.ApiService
 import com.carlosvpinto.dollar_mexico.utils.Constants
 import kotlinx.coroutines.Dispatchers
@@ -36,6 +41,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val TAG = "HomeFragment"
+    private lateinit var navController: NavController
 
     private lateinit var adapter: PreciosTodosAdapter
 
@@ -52,8 +58,16 @@ class HomeFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(requireContext())
         binding.recyclerBancosMX.layoutManager = linearLayoutManager
 
-        // Inicializar el adaptador y asignarlo al RecyclerView
-        adapter = PreciosTodosAdapter(this@HomeFragment, ArrayList())
+        // Inicializa el NavController utilizando el view que ya se creó
+       // navController = findNavController()
+        // Crear una instancia del adaptador
+        //val adapter = PreciosTodosAdapter(this, ArrayList(), childFragmentManager
+
+
+        // Obtener el NavController
+        //navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main)
+        adapter = PreciosTodosAdapter(requireActivity(), arrayListOf())
+        //adapter = PreciosTodosAdapter(this@HomeFragment, ArrayList())
         binding.recyclerBancosMX.adapter = adapter
 
         binding.btnRefresh.setOnClickListener {
@@ -163,6 +177,7 @@ class HomeFragment : Fragment() {
             println("Error: ${e.message}")
         }
     }
+    // Implementar la función que maneja el clic en el RecyclerView
 
 
     override fun onDestroyView() {

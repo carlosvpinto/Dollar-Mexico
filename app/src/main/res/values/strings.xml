@@ -14,4 +14,11 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="calculator">Calculator</string>
+
+
+    <string name="nombre_label">Nombre del Banco:</string>
+    <string name="monto_compra_label">Monto de Compra:</string>
+    <string name="monto_venta_label">Monto de Venta:</string>
+    <string name="fecha_actu_label">Fecha de Actualización:</string>
+    <string name="image_desc">Imagen del Banco</string>
 </resources>

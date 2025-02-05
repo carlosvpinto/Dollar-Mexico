@@ -8,9 +8,9 @@
 
 <de.hdodenhof.circleimageview.CircleImageView
     android:id="@+id/imageView"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_marginTop="70dp"
+    android:layout_width="110dp"
+    android:layout_height="110dp"
+    android:layout_marginTop="85dp"
     android:layout_gravity="center_horizontal"
     android:contentDescription="@string/image_desc"
     android:src="@drawable/institution_svgrepo_com"
@@ -26,12 +26,12 @@
         android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_marginTop="6dp"
-        android:layout_marginBottom="18sp"/>
+        android:layout_marginBottom="10sp"/>
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
         
@@ -101,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center">
 
         <LinearLayout
@@ -124,7 +124,7 @@
                 android:id="@+id/textViewMontoCompra"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/green"
+                android:textColor="@color/green_700"
                 android:textStyle="bold"
                 android:text="0.0"
                 android:textSize="18sp"
@@ -144,7 +144,7 @@
                 android:text="USD"
                 android:textSize="20sp"
                 android:layout_centerInParent="true"
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
         </LinearLayout>
 
         <LinearLayout
@@ -186,7 +186,7 @@
                 android:text="USD"
                 android:textSize="20sp"
                 android:layout_centerInParent="true"
-                android:visibility="invisible"/>
+                android:visibility="gone"/>
 
         </LinearLayout>
 
@@ -198,6 +198,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="30dp"
+    android:gravity="center"
     android:orientation="horizontal">
 
     <TextView

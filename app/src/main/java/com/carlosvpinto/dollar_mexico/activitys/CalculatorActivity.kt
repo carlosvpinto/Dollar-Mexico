@@ -30,7 +30,11 @@ import android.view.GestureDetector
 import android.view.MotionEvent
 import android.widget.ImageView
 import android.widget.Toast
+import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponseItem
 import de.hdodenhof.circleimageview.CircleImageView
+import java.text.SimpleDateFormat
+import java.util.Locale
+import java.util.TimeZone
 
 class CalculatorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCalculatorBinding
@@ -40,7 +44,14 @@ class CalculatorActivity : AppCompatActivity() {
     private var montoCompra: Double = 0.0
     private var montoVenta: Double = 0.0
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    private lateinit var preciosBancosMX: ArrayList<ApiMexicoResponseItem>
+    private var itemIndex: Int = -1
+    private var nombre=""
+    private var fechaActu = ""
+    private var image = ""
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -48,13 +59,15 @@ class CalculatorActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Recuperar los datos del Intent
-        val nombre = intent.getStringExtra("nombre")
-         montoCompra = intent.getDoubleExtra("montoCompra", 0.0)
-         montoVenta = intent.getDoubleExtra("montoVenta", 0.0)
-        val fechaActu = intent.getStringExtra("fechaActu")
 
-        val image = intent.getStringExtra("image")
-        Log.d(TAG, "onCreate: ")
+
+        preciosBancosMX = intent.getParcelableArrayListExtra<ApiMexicoResponseItem>("listaPrecios") ?: arrayListOf()
+        itemIndex = intent.getIntExtra("itemIndex", -1)
+
+        if (itemIndex != -1) {
+            val activeItem = preciosBancosMX[itemIndex]
+            cargarDatos(activeItem)
+        }
 
         binding.imgCambiobandera.setOnClickListener {
             if (usd_A_MXN){
@@ -66,7 +79,7 @@ class CalculatorActivity : AppCompatActivity() {
             }
 
         }
-        //detectarDeslizamiento(binding.imgBandeUsa)
+        detectarDeslizamiento(binding.imageView)
 
 
         // Escuchar cambios en el TextInputEditText
@@ -80,10 +93,63 @@ class CalculatorActivity : AppCompatActivity() {
             }
         })
 
+
+
+        llenardatos()
+        binding.btnCerrarCalculator.setOnClickListener {
+            cerrarYVolverAlMainActivity()
+        }
+
+    }
+    // Función para procesar el siguiente elemento
+
+    private fun processNextItem(subir: Boolean) {
+        if (itemIndex in 0 until preciosBancosMX.size) {
+            val item = preciosBancosMX[itemIndex]
+            // Ejecuta la acción deseada con el elemento actual
+            cargarDatos(item)
+            llenardatos()
+            calcularMontos()
+
+            if (subir) {
+                itemIndex++ // Incrementa el índice para el siguiente elemento
+            } else {
+                itemIndex-- // Decrementa el índice para el elemento anterior
+            }
+        } else {
+            // Maneja el caso cuando el índice está fuera de los límites
+            println("Índice fuera de los límites: $itemIndex")
+
+            if (itemIndex >= preciosBancosMX.size) {
+                itemIndex = preciosBancosMX.size - 1 // Ajusta el índice al último elemento válido
+            } else if (itemIndex < 0) {
+                itemIndex = 0 // Ajusta el índice al primer elemento válido
+            }
+        }
+    }
+
+
+    private fun cargarDatos(activeItem: ApiMexicoResponseItem) {
+        // Aquí puedes usar el activeItem para lo que necesites
+        nombre = activeItem.name
+        montoCompra = activeItem.buy
+        montoVenta = activeItem.sell
+        fechaActu = activeItem.date
+        image = activeItem.image
+
+    }
+
+
+    private fun llenardatos() {
+        // Formatear los valores a dos decimales
+        val formato = "%.2f"
+        val montoCompraFormatted = String.format(formato, montoCompra)
+        val montoVentaFormatted = String.format(formato, montoVenta)
+
         // Usar los datos en la actividad
         binding.textViewNombre.text = nombre
-        binding.textViewMontoCompra .text = montoCompra.toString()
-        binding.textViewMontoVenta.text = montoVenta.toString()
+        binding.textViewMontoCompra.text = montoCompraFormatted
+        binding.textViewMontoVenta.text = montoVentaFormatted
         binding.textViewFechaActu.text = fechaActu?.let { convertirUTCaLocal(it) }
 
         // Cargar la imagen
@@ -92,12 +158,9 @@ class CalculatorActivity : AppCompatActivity() {
             .placeholder(R.drawable.institution_svgrepo_com)
             .error(R.drawable.institution_svgrepo_com)
             .into(binding.imageView)
-
-        binding.btnCerrarCalculator.setOnClickListener {
-            cerrarYVolverAlMainActivity()
-        }
-
     }
+
+
     private fun calcularMontos() {
         // Obtener el valor del TextInputEditText
         val inputValue = binding.inputDolares.text.toString()
@@ -212,30 +275,26 @@ class CalculatorActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-    @RequiresApi(Build.VERSION_CODES.O)
     fun convertirUTCaLocal(utcDateTime: String): String {
         // Formato del datetime de entrada
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+        val formatterEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault())
+        formatterEntrada.timeZone = TimeZone.getTimeZone("UTC")
 
-        // Parsear el datetime de entrada a LocalDateTime
-        val localDateTime = LocalDateTime.parse(utcDateTime, formatter)
-
-        // Convertir a ZonedDateTime en UTC
-        val zonedUTC = localDateTime.atZone(ZoneId.of("UTC"))
+        // Parsear el datetime de entrada a Date
+        val date = formatterEntrada.parse(utcDateTime)
 
         // Convertir a la hora local del sistema
-        val zonedLocal = zonedUTC.withZoneSameInstant(ZoneId.systemDefault())
+        val formatterSalida = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        formatterSalida.timeZone = TimeZone.getDefault()
 
-        // Formatear la salida en el formato deseado
-        val formatterSalida = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-        return zonedLocal.format(formatterSalida)
+        return formatterSalida.format(date)
     }
 
     private fun detectarDeslizamiento(imageView: ImageView) {
         // Definir el GestureDetector para detectar gestos específicos
         val gestureDetector = GestureDetector(imageView.context, object : GestureDetector.SimpleOnGestureListener() {
-            private val SWIPE_THRESHOLD = 100
-            private val SWIPE_VELOCITY_THRESHOLD = 100
+            private val SWIPE_THRESHOLD = 50  // Umbral de deslizamiento más bajo
+            private val SWIPE_VELOCITY_THRESHOLD = 50  // Umbral de velocidad de deslizamiento más bajo
 
             override fun onFling(
                 e1: MotionEvent?,
@@ -251,9 +310,14 @@ class CalculatorActivity : AppCompatActivity() {
                         if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                             if (diffY < 0) {
                                 // Deslizó hacia arriba
-                                Toast.makeText(imageView.context, "Se movió", Toast.LENGTH_SHORT).show()
-                                return true
+                                processNextItem(true)
+                                //Toast.makeText(imageView.context, "Se movió para arriba", Toast.LENGTH_SHORT).show()
+                            } else {
+                                // Deslizó hacia abajo
+                                processNextItem(false)
+                                //Toast.makeText(imageView.context, "Se movió hacia abajo", Toast.LENGTH_SHORT).show()
                             }
+                            return true
                         }
                     }
                 }
@@ -262,11 +326,13 @@ class CalculatorActivity : AppCompatActivity() {
         })
 
         // Establecer el OnTouchListener para la imagen
-        imageView.setOnTouchListener { v, event ->
+        imageView.setOnTouchListener { _, event ->
             gestureDetector.onTouchEvent(event)
             true
         }
     }
+
+
 
 
     private fun cerrarYVolverAlMainActivity() {

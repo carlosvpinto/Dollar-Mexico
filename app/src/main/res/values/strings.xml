@@ -19,6 +19,6 @@
     <string name="nombre_label">Nombre del Banco:</string>
     <string name="monto_compra_label">Total Compra:</string>
     <string name="monto_venta_label">Total Venta:</string>
-    <string name="fecha_actu_label">Fecha de Actualización:</string>
+    <string name="fecha_actu_label">Fecha Act.:</string>
     <string name="image_desc">Imagen del Banco</string>
 </resources>

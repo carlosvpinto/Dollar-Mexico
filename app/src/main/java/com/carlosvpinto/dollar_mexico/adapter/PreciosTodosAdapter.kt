@@ -3,7 +3,7 @@ package com.carlosvpinto.dollar_mexico.adapter
 import android.app.Activity
 import android.content.Intent
 import android.os.Build
-import android.os.Bundle
+
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +11,22 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+
 import androidx.cardview.widget.CardView
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.carlosvpinto.dollar_mexico.activitys.MainActivity
+
 import com.carlosvpinto.dollar_mexico.R
 import com.carlosvpinto.dollar_mexico.activitys.CalculatorActivity
 import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponseItem
 import de.hdodenhof.circleimageview.CircleImageView
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import java.util.Locale
+import java.util.TimeZone
 
 class PreciosTodosAdapter(
     val context: Activity,
@@ -33,7 +36,6 @@ class PreciosTodosAdapter(
 
     //private lateinit var navController: NavController
     private var itemCount: Int = 0 // variable para almacenar la cantidad de elementos en la lista
-    private val TAG = "Adaptador"
 
     init {
 
@@ -49,7 +51,7 @@ class PreciosTodosAdapter(
         return BancosMXAdapterViewHolder(view)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+
     override fun onBindViewHolder(holder: BancosMXAdapterViewHolder, position: Int) {
         val bancoMX = preciosBancosMX[position]
 
@@ -66,23 +68,22 @@ class PreciosTodosAdapter(
 
         // Manejar el click en el itemView
         holder.itemView.setOnClickListener {
-
-                goToDetail(bancoMX) }
+                goToDetail(position)
+             }
 
 
 
         }
 
-    private fun goToDetail(bancoMX: ApiMexicoResponseItem) {
+    private fun goToDetail(position: Int) {
         val intent = Intent(context, CalculatorActivity::class.java).apply {
-            putExtra("nombre", bancoMX.name)
-            putExtra("montoCompra", bancoMX.buy)
-            putExtra("montoVenta", bancoMX.sell)
-            putExtra("fechaActu", bancoMX.date)
-            putExtra("image", bancoMX.image)
+            putParcelableArrayListExtra("listaPrecios", preciosBancosMX)
+            putExtra("itemIndex", position)
         }
         context.startActivity(intent)
     }
+
+
 
 
     // EL TAMAñO DE LA LISTA QUE VAMOS A MOSTRAR
@@ -120,23 +121,20 @@ class PreciosTodosAdapter(
 
         }
     }
-    @RequiresApi(Build.VERSION_CODES.O)
+
     fun convertirUTCaLocal(utcDateTime: String): String {
         // Formato del datetime de entrada
-        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSSSS")
+        val formatterEntrada = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSS", Locale.getDefault())
+        formatterEntrada.timeZone = TimeZone.getTimeZone("UTC")
 
-        // Parsear el datetime de entrada a LocalDateTime
-        val localDateTime = LocalDateTime.parse(utcDateTime, formatter)
-
-        // Convertir a ZonedDateTime en UTC
-        val zonedUTC = localDateTime.atZone(ZoneId.of("UTC"))
+        // Parsear el datetime de entrada a Date
+        val date = formatterEntrada.parse(utcDateTime)
 
         // Convertir a la hora local del sistema
-        val zonedLocal = zonedUTC.withZoneSameInstant(ZoneId.systemDefault())
+        val formatterSalida = SimpleDateFormat("yyyy-MM-dd hh:mm:ss a", Locale.getDefault())
+        formatterSalida.timeZone = TimeZone.getDefault()
 
-        // Formatear la salida en el formato deseado (12 horas)
-        val formatterSalida = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss a")
-        return zonedLocal.format(formatterSalida)
+        return formatterSalida.format(date)
     }
 
 }

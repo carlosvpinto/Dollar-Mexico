@@ -63,6 +63,8 @@ dependencies {
     implementation (libs.androidx.fragment.ktx)
     implementation (libs.material.v160)
     implementation(libs.androidx.activity) // Revisa la última versión
+    implementation (libs.mpandroidchart) //Grafico
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

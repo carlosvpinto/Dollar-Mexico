@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="50dp"
+        android:layout_margin="15dp"
+        android:layout_gravity="center"
+        app:cardBackgroundColor="#c8c8c9"
+        app:cardElevation="4dp" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#c8c8c9"
+                android:orientation="horizontal"
+                android:layout_margin="15dp">
+            </View>
+            <View
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="#c8c8c9"
+                android:orientation="horizontal"
+                android:layout_margin="15dp">
+            </View>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="#c8c8c9"
+                android:orientation="vertical"
+                android:layout_marginTop="15dp"
+                android:layout_margin="25dp">
+
+            </View>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="140dp"
+                    android:layout_height="132dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="35dp"
+                    android:background="#c8c8c9">
+
+                </View>
+
+                <View
+                    android:layout_width="140dp"
+                    android:layout_height="132dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="35dp"
+                    android:background="#c8c8c9">
+
+                </View>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+</LinearLayout>

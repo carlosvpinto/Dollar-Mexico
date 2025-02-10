@@ -3,27 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-   android:background="@color/blue_700"
-    android:gravity="center"
     android:layout_gravity="center_vertical"
     tools:context=".ui.calculator.CalculatorFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/txtNameInst"
+    <com.facebook.shimmer.ShimmerFrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="42sp"
-        android:textStyle="bold"
-        android:text="@string/hello_blank_fragment" />
-
-    <TextView
-        android:id="@+id/txtBuyInst"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textSize="42sp"
-        android:textStyle="bold"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="30dp"
+        app:shimmer_auto_start="true">
+    <include layout="@layout/view_loading_activcalculator"/>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
 </LinearLayout>

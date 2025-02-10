@@ -1,5 +1,6 @@
 package com.carlosvpinto.dollar_mexico.ui.calculator
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,8 +10,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.carlosvpinto.dollar_mexico.R
+import com.carlosvpinto.dollar_mexico.activitys.CalculatorActivity
 import com.carlosvpinto.dollar_mexico.databinding.FragmentCalculatorBinding
 import com.carlosvpinto.dollar_mexico.databinding.FragmentHomeBinding
+import com.carlosvpinto.dollar_mexico.ui.home.HomeFragment
 import com.carlosvpinto.dollar_mexico.ui.home.HomeViewModel
 
 private const val ARG_PARAM1 = "param1"
@@ -24,19 +27,8 @@ class CalculatorFragment : Fragment() {
     private val  TAG = "Fragment_Calculator"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Recibir los datos del Bundle
-        arguments?.let { bundle ->
-            val nombreBanco = bundle.getString("nombreBanco")
-            val montoCompra = bundle.getDouble("montoCompra")
-            val montoVenta = bundle.getDouble("montoVenta")
-            val fechaActu = bundle.getString("fechaActu")
-            val image = bundle.getString("image")
 
-
-            Log.d(TAG, "onCreate: nombreBanco $nombreBanco montoCompra $montoCompra")
-            // Usar los datos como necesites
-            // Por ejemplo, mostrarlos en TextViews o ImageViews
-        }
+        goToDetail(1)
 
 
 
@@ -44,16 +36,6 @@ class CalculatorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Obtener los datos del Bundle
-        val nombreBanco = arguments?.getString("nombreBanco")
-        val montoCompra = arguments?.getDouble("montoCompra")
-        val montoVenta = arguments?.getDouble("montoVenta")
-        val fechaActu = arguments?.getString("fechaActu")
-        val image = arguments?.getString("image")
-        binding.txtBuyInst.text = montoCompra.toString()
-        binding.txtNameInst.text = nombreBanco
-        // Ahora puedes usar estos datos para mostrar en tu CalculatorFragment
-        Log.d("CalculatorFragment", "Banco: $nombreBanco, Compra: $montoCompra, Venta: $montoVenta $fechaActu image $image")
     }
 
     override fun onCreateView(
@@ -66,6 +48,14 @@ class CalculatorFragment : Fragment() {
 
 
         return root
+    }
+    private fun goToDetail(position: Int) {
+        val preciosBancosMX = HomeFragment.ApiResponseHolder.getResponse()
+        val intent = Intent(context, CalculatorActivity::class.java).apply {
+            putParcelableArrayListExtra("listaPrecios", preciosBancosMX)
+            putExtra("itemIndex", position)
+        }
+        context?.startActivity(intent)
     }
 
     companion object {

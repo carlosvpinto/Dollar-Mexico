@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dollar_Mexico</string>
+    <string name="app_name">Pesos Al Dia</string>
     <string name="title_home">Inicio</string>
     <string name="title_historia">Historia</string>
     <string name="title_notifications">Notifications</string>
@@ -13,7 +13,7 @@
     <string name="refresh">Refresh</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="calculator">Calculator</string>
+    <string name="calculator">Calculadora</string>
 
 
     <string name="nombre_label">Nombre del Banco:</string>
@@ -21,4 +21,11 @@
     <string name="monto_venta_label">Total Venta:</string>
     <string name="fecha_actu_label">Fecha Act.:</string>
     <string name="image_desc">Imagen del Banco</string>
+    <string name="variacion_del_peso_mxn">Variacion del Peso MXN</string>
+
+    <string-array name="lista_history">
+        <item>Ultimos 7 Dias</item>
+        <item>Ultimos 30 Dias</item>
+
+    </string-array>
 </resources>

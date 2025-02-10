@@ -6,25 +6,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
-import com.carlosvpinto.dollar_mexico.R
 import com.carlosvpinto.dollar_mexico.adapter.PreciosTodosAdapter
 import com.carlosvpinto.dollar_mexico.databinding.FragmentHomeBinding
 import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponse
-import com.carlosvpinto.dollar_mexico.model.ApiMexicoResponseItem
+import com.carlosvpinto.dollar_mexico.model.history.HistoryModelResponse
+import com.carlosvpinto.dollar_mexico.model.history.HistoryModelResponseItem
 import com.carlosvpinto.dollar_mexico.utils.ApiService
 import com.carlosvpinto.dollar_mexico.utils.Constants
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +45,6 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -177,19 +171,11 @@ class HomeFragment : Fragment() {
             println("Error: ${e.message}")
         }
     }
-    // Implementar la función que maneja el clic en el RecyclerView
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-}
-
-
     //INTERFACE PARA COMUNICAR CON EL ACTIVITY
     object ApiResponseHolder {
         private var responseApiMexico: ApiMexicoResponse? = null
+        private var responseHistory7D: List<HistoryModelResponseItem>? = null
+        private var responseHistory30D: List<HistoryModelResponseItem>? = null
 
         fun getResponse(): ApiMexicoResponse? {
             return responseApiMexico
@@ -200,7 +186,32 @@ class HomeFragment : Fragment() {
             responseApiMexico = newResponse
         }
 
+        fun setResponseHistory7D(ResponseHistory: List<HistoryModelResponseItem>) {
+            responseHistory7D = ResponseHistory
+        }
+        fun setResponseHistory3D(ResponseHistory: List<HistoryModelResponseItem>) {
+            responseHistory30D = ResponseHistory
+        }
+        fun getResponseHistory7D(): List<HistoryModelResponseItem>? {
+            return responseHistory7D
+        }
+
+        fun getResponseHistory30D(): List<HistoryModelResponseItem>? {
+            return responseHistory30D
+        }
+
+
 
     }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+}
+
+
+
 
 

@@ -10,7 +10,6 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.carlosvpinto.dollar_mexico.R
 import com.carlosvpinto.dollar_mexico.databinding.ActivityMainBinding
-
 class MainActivity : AppCompatActivity() {
     private val TAG = "MainActivity"
     private lateinit var binding: ActivityMainBinding
@@ -18,14 +17,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Infla el layout antes de usar las vistas
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val navView: BottomNavigationView = binding.navView
-
+        // Navegación y controladores
+        val openFragment = intent.getStringExtra("openFragment")
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
+
+        if (openFragment == "home") {
+            navController.navigate(R.id.navigation_home)
+        }
+
+        val navView: BottomNavigationView = binding.navView
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
@@ -35,10 +39,6 @@ class MainActivity : AppCompatActivity() {
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
-        Log.d(TAG, "onCreate: navController $navController appBarConfiguration: $appBarConfiguration ")
         navView.setupWithNavController(navController)
     }
-
-
-
 }

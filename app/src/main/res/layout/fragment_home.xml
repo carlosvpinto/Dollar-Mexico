@@ -8,6 +8,13 @@
 
     tools:context=".ui.home.HomeFragment">
 
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/logo_dolar_mexico40x40_png"
+        android:layout_gravity="center" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +23,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:padding="5dp"
-        android:layout_margin="30dp"
+        android:layout_margin="10dp"
        >
 
     </TextView>

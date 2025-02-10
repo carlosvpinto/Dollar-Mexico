@@ -26,7 +26,7 @@
         android:id="@+id/navigation_calculator"
         android:name="com.carlosvpinto.dollar_mexico.ui.calculator.CalculatorFragment"
         android:label="@string/calculator"
-        tools:layout="@layout/fragment_calculator" />
+        tools:layout="@layout/activity_calculator" />
 
 
 </navigation>

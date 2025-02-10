@@ -1,6 +1,7 @@
 package com.carlosvpinto.dollar_mexico.activitys
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.drawable.TransitionDrawable
 import android.os.Build
@@ -336,7 +337,12 @@ class CalculatorActivity : AppCompatActivity() {
 
 
     private fun cerrarYVolverAlMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("openFragment", "home")
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
         finish() // Cierra la actividad actual
     }
+
 
 }

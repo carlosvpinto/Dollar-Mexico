@@ -206,7 +206,6 @@ class CalculatorActivity : AppCompatActivity() {
 
         //Animacion Fecha**************************
         val rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_anim)
-        binding.imgCambio.startAnimation(rotateAnimation)
         binding.imgCambiobandera.startAnimation(rotateAnimation)
 
 

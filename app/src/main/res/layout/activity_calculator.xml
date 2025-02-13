@@ -41,12 +41,13 @@
             android:id="@+id/imgBandeUsa"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/bandera_eeuu"
             android:src="@drawable/img_bandera_usa"/>
         <ImageView
             android:id="@+id/imgCambiobandera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:contentDescription="@string/cambio_de_bandera"
             android:src="@drawable/intercambiar"
             android:layout_margin="10dp"
             />
@@ -55,12 +56,14 @@
             android:id="@+id/imgBandeMexico"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/bandera_mexico"
             android:src="@drawable/img_bandera_mexico"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:baselineAligned="false"
         android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
@@ -69,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Monto en Dolar"
+            android:hint="@string/monto_en_dolar"
             app:endIconMode="clear_text"
             app:startIconDrawable="@drawable/ic_peso">
 
@@ -82,14 +85,7 @@
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView
-            android:id="@+id/imgCambio"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:visibility="gone"
-            android:src="@drawable/swap_vert_24px"
-            android:layout_gravity="center_vertical"
-           />
+
 
     </LinearLayout>
 
@@ -100,6 +96,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:layout_marginTop="15dp"
         android:layout_gravity="center">
@@ -126,24 +123,24 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/green_700"
                 android:textStyle="bold"
-                android:text="0.0"
+                android:text="@string/_0_0"
                 android:textSize="18sp"
                 android:layout_marginTop="8dp" />
             <TextView
                 android:id="@+id/textViewMXN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MXN"
+                android:text="@string/mxn"
                 android:textSize="20sp"
-                android:layout_centerInParent="true"/>
+                />
 
             <TextView
                 android:id="@+id/textViewUSD"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="USD"
+                android:text="@string/usd"
                 android:textSize="20sp"
-                android:layout_centerInParent="true"
+
                 android:visibility="gone"/>
         </LinearLayout>
 
@@ -168,24 +165,24 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/red"
                 android:textStyle="bold"
-                android:text="0.0"
+                android:text="@string/_0_0"
                 android:textSize="18sp"
                 android:layout_marginTop="8dp" />
             <TextView
                 android:id="@+id/textViewMXN2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MXN"
+                android:text="@string/mxn"
                 android:textSize="20sp"
-                android:layout_centerInParent="true"/>
+                />
 
             <TextView
                 android:id="@+id/textViewUSD2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="USD"
+                android:text="@string/usd"
                 android:textSize="20sp"
-                android:layout_centerInParent="true"
+
                 android:visibility="gone"/>
 
         </LinearLayout>
@@ -214,7 +211,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="01/01/2025"
+        android:text="@string/_01_01_2025"
         android:textSize="16sp"
         android:layout_marginTop="8dp" />
 
@@ -232,7 +229,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
         android:textColor="@color/gray_light"
-        android:text="Cerrar"
+        android:text="@string/cerrar"
 
         android:layout_gravity="center"
         />

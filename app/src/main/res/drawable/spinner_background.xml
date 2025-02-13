@@ -16,9 +16,6 @@
         </shape>
     </item>
 
-    <!-- Segunda capa: La flecha del spinner -->
-    <item android:right="10dp" android:gravity="right|center_vertical">
-        <bitmap android:src="@android:drawable/arrow_down_float" />
-    </item>
+
 </layer-list>
 

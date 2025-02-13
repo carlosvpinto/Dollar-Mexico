@@ -22,6 +22,16 @@
     <string name="fecha_actu_label">Fecha Act.:</string>
     <string name="image_desc">Imagen del Banco</string>
     <string name="variacion_del_peso_mxn">Variacion del Peso MXN</string>
+    <string name="clic_en_en_el_grafico">Clic en en el Grafico</string>
+    <string name="usd">USD</string>
+    <string name="mxn">MXN</string>
+    <string name="_0_0">0.0</string>
+    <string name="_01_01_2025">01/01/2025</string>
+    <string name="cerrar">Cerrar</string>
+    <string name="monto_en_dolar">Monto en Dolar</string>
+    <string name="bandera_eeuu">Bandera EEUU</string>
+    <string name="cambio_de_bandera">Cambio de Bandera</string>
+    <string name="bandera_mexico">Bandera Mexico</string>
 
     <string-array name="lista_history">
         <item>Ultimos 7 Dias</item>

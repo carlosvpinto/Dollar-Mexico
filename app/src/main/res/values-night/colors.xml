@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores del tema principal en modo nocturno -->
+    <color name="colorPrimary">#BB86FC</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <!-- Colores de los textos en modo nocturno -->
+    <color name="colorTextPrimary">#FFFFFF</color>
+    <color name="colorTextSecondary">#B0BEC5</color>
+
+    <!-- Colores del fondo en modo nocturno -->
+    <color name="colorBackground">#121212</color>
+</resources>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/blue_200"
+
     tools:context=".ui.historia.HistoriaFragment">
 
     <ImageView
@@ -37,7 +37,7 @@
     <Spinner
         android:id="@+id/spinnerHistory"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
 
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
@@ -74,8 +74,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:gravity="center"
-        android:text="Clic en en el Grafico"
-        android:textSize="14dp"
+        android:text="@string/clic_en_en_el_grafico"
+        android:textSize="14sp"
         android:textStyle="bold" />
 
 </LinearLayout>
